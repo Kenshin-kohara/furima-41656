@@ -1,60 +1,60 @@
 ## usersテーブル
 
 |Column|Type|Options|
-|nickname       |text|null: false, unique: true|
-|mail address   |text|null: false, unique: true|
-|password       |text|null: false|
-|last name      |text|null: false|
-|first name     |text|null: false|
-|last name read |text|null: false|
-|first name read|text|null: false|
-|date of birth  |text|null: false|
+|nickname_______|string|null: false|
+|email__________|string|null: false, unique: true|
+|password_______|string|null: false|
+|last_name______|string|null: false|
+|first_name_____|string|null: false|
+|last_name_read_|string|null: false|
+|first_name_read|string|null: false|
+|date_of_birth__|integer|null: false|
 
 ### Association
-has_many :items
-has_many :purchase records
+has_many :item
+has_many :purchase record
 
 ## itemsテーブル
 
 |Column|Type|Options|
-|item         |text|null: false|
-|image        |text|null: false|
-|explanation  |string|null: false|
-|price        |text|null: false|
-|seller       |references|null: false|
-|category     |text|null: false|
-|keep         |text|null: false|
-|bearer       |text|null: false|
-|shipping area|text|null: false|
-|shipping days|text|null: false|
+|item_________|string|null: false|
+|image________|text|null: false|
+|explanation__|text|null: false|
+|price________|integer|null: false|
+|seller_______|references|null: false|
+|category_____|string|null: false|
+|keep_________|string|null: false|
+|bearer_______|string|null: false|
+|prefecture___|string|null: false|
+|shipping_days|string|null: false|
 
 ### Association
-has_one :purchase records
-belongs_to :items
+has_one :purchase record
+belongs_to :item
 
-## purchase recordsテーブル
+## purchase_recordsテーブル
 
 |Column|Type|Options|
 |purchaser|references|null: false, foreign_key: true|
-|item     |references|null: false, foreign_key: true|
-|image    |references|null: false, foreign_key: true|
-|price    |references|null: false, foreign_key: true|
+|item_____|references|null: false, foreign_key: true|
+|image____|references|null: false, foreign_key: true|
+|price____|references|null: false, foreign_key: true|
 
 ### Association
-belongs_to :users
-belongs_to :items
+belongs_to :user
+belongs_to :item
 has_one :shipping destination
 
 
-## shipping destinationテーブル
+## shipping_destinationテーブル
 
 |Column|Type|Options|
-|post code   |text|null: false|
-|prefecture  |text|null: false|
-|city        |text|null: false|
-|street      |text|null: false|
-|building    |text||
-|phone number|text|null: false, unique: true|
+|post_code___|integer|null: false|
+|prefecture__|string|null: false|
+|city________|string|null: false|
+|street______|string|null: false|
+|building____|string|null: false|
+|phone_number|integer|null: false, unique: true|
 
 ### Association
-belongs_to :purchase records
+belongs_to :purchase record
