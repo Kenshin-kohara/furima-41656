@@ -23,11 +23,11 @@ has_many :purchase_records
 |explanation|text|null: false|
 |price|integer|null: false|
 |user|references|null: false, foreign_key: true|
-|genre_id|integer|null: false|
-|genre_id|integer|null: false|
-|genre_id|integer|null: false|
-|genre_id|integer|null: false|
-|genre_id|integer|null: false|
+|category_id|integer|null: false|
+|keep_id|integer|null: false|
+|bearer_id|integer|null: false|
+|prefecture_id|integer|null: false|
+|shipping_day_id|integer|null: false|
 
 ### Association
 has_one :purchase_record
@@ -39,7 +39,7 @@ belongs_to :user
 |------|----|-------|
 |user|references|null: false, foreign_key: true|
 |item|references|null: false, foreign_key: true|
-|item|references|null: false, foreign_key: true|
+
 
 ### Association
 belongs_to :user
@@ -52,7 +52,7 @@ has_one :shipping_destination
 |Column|Type|Options|
 |------|----|-------|
 |post_code|string|null: false|
-|genre_id|integer|null: false|
+|prefecture_id|integer|null: false|
 |city|string|null: false|
 |street|string|null: false|
 |building|string|
