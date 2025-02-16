@@ -1,24 +1,63 @@
-# README
+## usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Column|Type|Options|
+|------|----|-------|
+|nickname|string|null: false|
+|email|string|null: false, unique: true|
+|encrypted_password|string|null: false|
+|last_name|string|null: false|
+|first_name|string|null: false|
+|last_name_read|string|null: false|
+|first_name_read|string|null: false|
+|date_of_birth|date|null: false|
 
-Things you may want to cover:
+### Association
+has_many :items
+has_many :purchase_records
 
-* Ruby version
+## itemsテーブル
 
-* System dependencies
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false|
+|explanation|text|null: false|
+|price|integer|null: false|
+|user|references|null: false, foreign_key: true|
+|category_id|integer|null: false|
+|keep_id|integer|null: false|
+|bearer_id|integer|null: false|
+|prefecture_id|integer|null: false|
+|shipping_day_id|integer|null: false|
 
-* Configuration
+### Association
+has_one :purchase_record
+belongs_to :user
 
-* Database creation
+## purchase_recordsテーブル
 
-* Database initialization
+|Column|Type|Options|
+|------|----|-------|
+|user|references|null: false, foreign_key: true|
+|item|references|null: false, foreign_key: true|
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+belongs_to :user
+belongs_to :item
+has_one :shipping_destination
 
-* Deployment instructions
 
-* ...
+## shipping_destinationsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|post_code|string|null: false|
+|prefecture_id|integer|null: false|
+|city|string|null: false|
+|street|string|null: false|
+|building|string|
+|phone_number|string|null: false|
+|purchase_record|references|null: false, foreign_key: true|
+
+### Association
+belongs_to :purchase_record
