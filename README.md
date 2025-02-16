@@ -8,20 +8,19 @@
 |first_name_____|string|null: false|
 |last_name_read_|string|null: false|
 |first_name_read|string|null: false|
-|date_of_birth__|integer|null: false|
+|date___________|integer|null: false|
 
 ### Association
-has_many :item
-has_many :purchase record
+has_many :items
+has_many :purchase_records
 
 ## itemsテーブル
 
 |Column|Type|Options|
 |item_________|string|null: false|
-|image________|text|null: false|
 |explanation__|text|null: false|
 |price________|integer|null: false|
-|seller_______|references|null: false|
+|user_________|references|null: false, foreign_key: true|
 |category_____|string|null: false|
 |keep_________|string|null: false|
 |bearer_______|string|null: false|
@@ -29,7 +28,7 @@ has_many :purchase record
 |shipping_days|string|null: false|
 
 ### Association
-has_one :purchase record
+has_one :purchase_record
 belongs_to :item
 
 ## purchase_recordsテーブル
@@ -49,12 +48,13 @@ has_one :shipping destination
 ## shipping_destinationテーブル
 
 |Column|Type|Options|
-|post_code___|integer|null: false|
-|prefecture__|string|null: false|
+|post_code___|string|null: false|
+Active|prefecture__|string|null: false|
 |city________|string|null: false|
 |street______|string|null: false|
-|building____|string|null: false|
-|phone_number|integer|null: false, unique: true|
+|building____|string|
+|phone_number|string|null: false|
+|user|references|null: false, foreign_key: true|
 
 ### Association
 belongs_to :purchase record
