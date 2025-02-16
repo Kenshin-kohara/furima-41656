@@ -1,14 +1,15 @@
 ## usersテーブル
 
 |Column|Type|Options|
-|nickname_______|string|null: false|
-|email__________|string|null: false, unique: true|
-|password_______|string|null: false|
-|last_name______|string|null: false|
-|first_name_____|string|null: false|
-|last_name_read_|string|null: false|
+|------|----|-------|
+|nickname|string|null: false|
+|email|string|null: false, unique: true|
+|encrypted_password|string|null: false|
+|last_name|string|null: false|
+|first_name|string|null: false|
+|last_name_read|string|null: false|
 |first_name_read|string|null: false|
-|date___________|integer|null: false|
+|date_of_birth|date|null: false|
 
 ### Association
 has_many :items
@@ -17,15 +18,16 @@ has_many :purchase_records
 ## itemsテーブル
 
 |Column|Type|Options|
-|item_________|string|null: false|
-|explanation__|text|null: false|
-|price________|integer|null: false|
-|user_________|references|null: false, foreign_key: true|
-|category_____|string|null: false|
-|keep_________|string|null: false|
-|bearer_______|string|null: false|
-|prefecture___|string|null: false|
-|shipping_days|string|null: false|
+|------|----|-------|
+|name|string|null: false|
+|explanation|text|null: false|
+|price|integer|null: false|
+|user|references|null: false, foreign_key: true|
+|category|integer|null: false|
+|keep|integer|null: false|
+|bearer|integer|null: false|
+|prefecture|integer|null: false|
+|shipping_days|integer|null: false|
 
 ### Association
 has_one :purchase_record
@@ -34,27 +36,28 @@ belongs_to :item
 ## purchase_recordsテーブル
 
 |Column|Type|Options|
+|------|----|-------|
 |purchaser|references|null: false, foreign_key: true|
-|item_____|references|null: false, foreign_key: true|
-|image____|references|null: false, foreign_key: true|
-|price____|references|null: false, foreign_key: true|
+|name|references|null: false, foreign_key: true|
+|price|references|null: false, foreign_key: true|
 
 ### Association
 belongs_to :user
 belongs_to :item
-has_one :shipping destination
+has_one :shipping _destination
 
 
-## shipping_destinationテーブル
+## shipping_destinationsテーブル
 
 |Column|Type|Options|
-|post_code___|string|null: false|
-Active|prefecture__|string|null: false|
-|city________|string|null: false|
-|street______|string|null: false|
-|building____|string|
+|------|----|-------|
+|post_code|string|null: false|
+|prefecture|integer|null: false|
+|city|string|null: false|
+|street|string|null: false|
+|building|string|
 |phone_number|string|null: false|
-|user|references|null: false, foreign_key: true|
+|purchaser|references|null: false, foreign_key: true|
 
 ### Association
-belongs_to :purchase record
+belongs_to :purchase_record
