@@ -65,7 +65,13 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
-      it 'passwordは半角英数字混合でなければ保存できない' do
+      it 'passwordは半角英字だけでは保存できない' do
+        @user.password = 'aaaddd'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password must include both letters and numbers")
+      end
+
+      it 'passwordは半角数字だけでは保存できない' do
         @user.password = '123456'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password must include both letters and numbers")
