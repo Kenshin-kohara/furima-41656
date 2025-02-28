@@ -28,13 +28,19 @@ RSpec.describe User, type: :model do
       it 'emailには@が無ければ登録できない' do
         @user.email = 'testtest'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email must contain @")
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
 
       it 'パスワードが空では保存できない' do
         @user.password = ''  
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+
+      it 'パスワードに全角が含まれると保存できない' do
+        @user.password = '123aｓd'  
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password must include both letters and numbers")
       end
 
       it 'passwordとpassword_confirmationが一致しなければ保存できない' do
