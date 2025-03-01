@@ -83,3 +83,4 @@ group :development, :test do
 end
 
 gem 'active_hash'
+gem 'jp_prefecture'
