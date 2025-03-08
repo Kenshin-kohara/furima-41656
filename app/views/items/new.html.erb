@@ -5,10 +5,10 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with(model: @item, method: :POST, url:new_item_path, id: 'new_item', class: 'new_item', local: true) do |f| %>
+    <%= form_with(model: @item, method: :POST, url:items_path, id: 'new_item', class: 'new_item', local: true) do |f| %>
 
     <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
-    <% render 'shared/error_messages', model: @item %>
+    <%= render 'shared/error_messages', model: f.object %>
     <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
 
     <%# 商品画像 %>
@@ -21,7 +21,11 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= image_tag item.image, id:"item-image" if @item.image.attached?%>
+        <%= f.file_field :image, id:"item-image" %>
+
+        <%if @item.image.attached? %>
+           <%= image_tag @item.image, id: "item-image" %>
+        <% end %>
       </div>
     </div>
     <%# /商品画像 %>
@@ -99,7 +103,7 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :hoge, class:"price-input", id:"item-price", placeholder:"例）300" %>
+          <input class="price-input" id="item-price" placeholder="半角数字で入力" type="text" name="item[price]" />
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
