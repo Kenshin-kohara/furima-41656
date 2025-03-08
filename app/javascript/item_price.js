@@ -1,6 +1,9 @@
 const priceInput = document.getElementById("item-price");
 priceInput.addEventListener("input", () => {
   const inputValue = priceInput.value;
+
+
+
   console.log(inputValue);
    // 手数料要素を取得
    const addTaxDom = document.getElementById("add-tax-price");
