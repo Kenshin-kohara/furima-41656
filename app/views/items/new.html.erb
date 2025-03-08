@@ -23,7 +23,7 @@
         </p>
         <%= f.file_field :image, id:"item-image" %>
 
-        <%if @item.image.attached? %>
+        <%if @item.persisted? && @item.image.attached? %>
            <%= image_tag @item.image, id: "item-image" %>
         <% end %>
       </div>
