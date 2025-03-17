@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+    @items_empty = @items.empty?
   end
 
   def new
