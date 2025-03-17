@@ -2,8 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
 
   def index
-    @items = Item.all
-    @items_empty = @items.empty?
+    @items = Item.order(:created_at)
   end
 
   def new
