@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :set_item, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -19,7 +21,17 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+     redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
@@ -28,6 +40,17 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :explanation, :price, :category_id, :keep_id, :bearer_id,
     :prefecture_id, :shipping_day_id, :image).merge(user_id: current_user.id) # 他の許可するパラメータも含める
   end
-  
 
+  def set_item
+    @item = Item.find_by(id: params[:id])
+    unless @item
+      redirect_to root_path, alert: "Item not found"
+    end
+  end
+
+  def correct_user
+    unless @item.user == current_user
+      redirect_to root_path(@item)
+    end
+  end
 end
