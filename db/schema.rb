@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_03_065746) do
     t.string "city", default: "", null: false
     t.string "street", default: "", null: false
     t.string "building", default: "", null: false
-    t.integer "phone_number", null: false
+    t.string "phone_number", default: "", null: false
     t.bigint "purchase_record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

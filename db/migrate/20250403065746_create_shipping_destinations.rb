@@ -6,7 +6,7 @@ class CreateShippingDestinations < ActiveRecord::Migration[7.1]
       t.string     :city,             null: false, default: ""
       t.string     :street,           null: false, default: ""
       t.string     :building,         null: false, default: ""
-      t.integer    :phone_number,     null: false
+      t.string     :phone_number,     null: false, default: ""
       t.references :purchase_record,  null: false, foreign_key: true
       t.timestamps
     end
