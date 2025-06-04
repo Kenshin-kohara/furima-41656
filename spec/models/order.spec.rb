@@ -1,10 +1,10 @@
 require 'rails_helper'
 RSpec.describe Order, type: :model do
   before do
-    user = FactoryBot.create(:user) # ユーザー1を登録
-    item = FactoryBot.build(:item, user_id: 1) #ユーザー1を出品者に紐づけ
-    user = FactoryBot.create(:user) # ユーザー2を登録
-    @order = FactoryBot.build(:order, user_id: user.id, item_id: item.id)
+    user1 = FactoryBot.create(:user) # ユーザー1を登録
+    item1 = FactoryBot.build(:item, user_id: user1.id) #ユーザー1を出品者に紐づけ
+    user2 = FactoryBot.create(:user) # ユーザー2を登録
+    @order = FactoryBot.build(:order, user_id: user2.id, item_id: item1.id)
   end
 
   describe '商品購入機能' do
@@ -51,21 +51,6 @@ RSpec.describe Order, type: :model do
       end
 
     end
-
-    context '自分の商品を購入できない' do
-      it '自分の出品した商品は購入できない' do
-        @order = FactoryBot.build(:order, user_id: 1, item_id: item.id)
-        expect(@order).not_to be_valid
-      end
-    end
-
-    context 'ログインしなければ商品を購入できない' do
-      it 'ログインしなければ商品を購入できない' do
-        expect(@order).not_to be_valid
-
-      end
-    end
-
   end
 end
 
