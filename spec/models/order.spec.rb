@@ -9,11 +9,11 @@ RSpec.describe Order, type: :model do
 
   describe '商品購入機能' do
     context '商品購入できるとき' do
-      it'6つの項目が埋まっていれば購入ができる' do
+      it'6つの項目とトークンがあれば購入ができる' do
         expect(@order).to be_valid
       end
 
-      it '建物名が空欄でも5つの項目が埋まっていれば購入できる' do
+      it '建物名が空欄でも5つの項目とトークンがあれば購入できる' do
         @order.building = ''
         expect(@order).to be_valid
       end
@@ -49,6 +49,13 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
+
+      it "tokenが空では登録できない" do
+        @order.token = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+      
 
     end
   end

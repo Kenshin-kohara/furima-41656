@@ -6,5 +6,6 @@ FactoryBot.define do
     street            { 'streetテスト' }
     building          { 'buildingテスト' }
     phone_number      { '02302340234' }
+    token {"pk_test_a616b2dd01e1441eb2808070"}
   end
 end
