@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
 before_action :authenticate_user!, expect: [:index, :create]
 #異なるユーザーであることが条件の記載
 before_action :check_not_owner, only: [:index, :create]
+#売却済みでトップページに遷移させる条件の記載
+before_action :check_item_sold, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -44,4 +46,12 @@ before_action :check_not_owner, only: [:index, :create]
       redirect_to root_path(@item)
     end
   end
+
+  def check_item_sold
+    @item = Item.find(params[:item_id])
+    if @item.purchase_record.present? 
+      redirect_to root_path
+    end
+  end
+
 end

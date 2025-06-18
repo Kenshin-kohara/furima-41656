@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :check_item_sold, only: [:edit, :update]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
@@ -49,6 +50,13 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find_by(id: params[:id])
     unless @item
+      redirect_to root_path
+    end
+  end
+
+  def check_item_sold
+    @item = Item.find_by(id: params[:id])
+    if @item.purchase_record.present? 
       redirect_to root_path, alert: "Item not found"
     end
   end
