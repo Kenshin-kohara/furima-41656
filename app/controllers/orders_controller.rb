@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
 #beforeアクションの記入。ユーザーのログイン必須
+before_action :authenticate_user!, expect: [:index, :create]
 #異なるユーザーであることが条件の記載
+before_action :check_not_owner, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -34,5 +36,12 @@ class OrdersController < ApplicationController
         card: order_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
+  end
+
+  def check_not_owner
+    @item = Item.find(params[:item_id])
+    if @item.user == current_user
+      redirect_to root_path(@item)
+    end
   end
 end
