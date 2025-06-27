@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+before_action :find_item
 #beforeアクションの記入。ユーザーのログイン必須
 before_action :authenticate_user!, expect: [:index, :create]
 #異なるユーザーであることが条件の記載
@@ -8,12 +9,12 @@ before_action :check_item_sold, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
+    #@item = Item.find(params[:item_id])
     @order = Order.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
+    #@item = Item.find(params[:item_id])
     @order = Order.new(order_params)
     if @order.valid?
       pay_item
@@ -27,7 +28,6 @@ before_action :check_item_sold, only: [:index, :create]
 
   private 
   def order_params
-    #priceはどのようにして送る？
     params.require(:order).permit(:post_code, :prefecture_id, :city, :street, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id, token: params[:token], price: @item.price)
   end
 
@@ -40,15 +40,19 @@ before_action :check_item_sold, only: [:index, :create]
       )
   end
 
-  def check_not_owner
+  def find_item
     @item = Item.find(params[:item_id])
+  end
+
+  def check_not_owner
+    #@item = Item.find(params[:item_id])
     if @item.user == current_user
       redirect_to root_path(@item)
     end
   end
 
   def check_item_sold
-    @item = Item.find(params[:item_id])
+    #@item = Item.find(params[:item_id])
     if @item.purchase_record.present? 
       redirect_to root_path
     end

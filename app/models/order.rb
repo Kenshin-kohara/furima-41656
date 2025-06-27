@@ -6,7 +6,7 @@ class Order
     validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city, :street
     validates :phone_number, format: { with: /\A[0-9]{10,11}\z/, message: "is not a valid phone number format" }
-    validates :user_id, :token##ログインしている購入者(ユーザー)を参照
+    validates :user_id, :token, :item_id
   end
   validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
 
