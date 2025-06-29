@@ -8,3 +8,5 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "card", to: "card.js"
 
 pin "item_price", to: "item_price.js"
+#エラー検証メモ　以下の記述による変化なし
+#pin "item-price", to: "item_price.js"

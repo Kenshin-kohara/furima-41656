@@ -1,3 +1,4 @@
+const price = () => {
 const priceInput = document.getElementById("item-price");
 priceInput.addEventListener("input", () => {
   const inputValue = priceInput.value;
@@ -15,6 +16,6 @@ priceInput.addEventListener("input", () => {
   // 利益を表示
   profitDom.innerHTML = `${profit}`;
 })
-
+}
 window.addEventListener("turbo:load", price);
 window.addEventListener("turbo:render", price);
